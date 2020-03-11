@@ -7,6 +7,8 @@ class Pomodoro {
         this.cycleType = "Session"
         this.cycleTypeElement = document.querySelector("#cycle-type")
         this.sessionTime = 25 * 60
+        this.sessionTimeElement = document.querySelector("#session-length")
+        this.breakTimeElement = document.querySelector("#break-length")
         this.breakTime = 5 * 60
         this.time = this.sessionTime //current time in seconds on timer
 
@@ -17,6 +19,12 @@ class Pomodoro {
         this.pauseButton.disabled = true
         this.stopButton.disabled = true
         this.resetButton = document.querySelector("#reset")
+
+        this.incrementSessionButton = document.querySelector("#session-increment")
+        this.decrementSessionButton = document.querySelector("#session-decrement")
+        this.incrementBreakButton = document.querySelector("#break-increment")
+        this.decrementBreakButton = document.querySelector("#break-decrement")
+
         let that = this
         this.startButton.addEventListener("click", function () {
             that.startTimer()
@@ -33,6 +41,44 @@ class Pomodoro {
         this.resetButton.addEventListener("click", function () {
             that.resetTimer()
         })
+        this.incrementSessionButton.addEventListener("click", function () {
+            that.incrementSession()
+        })
+        this.decrementSessionButton.addEventListener("click", function () {
+            that.decrementSession()
+        })
+        this.incrementBreakButton.addEventListener("click", function () {
+            that.incrementBreak()
+        })
+        this.decrementBreakButton.addEventListener("click", function () {
+            that.decrementBreak()
+        })
+    }
+
+    incrementSession() {
+        this.sessionTime = this.sessionTime + 60
+        this.sessionTimeElement.innerHTML = this.sessionTime / 60
+    }
+
+    decrementSession() {
+        // Only decrement to 1
+        if (this.sessionTime > 60) {
+            this.sessionTime = this.sessionTime - 60
+            this.sessionTimeElement.innerHTML = this.sessionTime / 60
+        }
+    }
+
+    incrementBreak() {
+        this.breakTime = this.breakTime + 60
+        this.breakTimeElement.innerHTML = this.breakTime / 60
+    }
+
+    decrementBreak() {
+        // Only decrement to 1
+        if (this.breakTime > 60) {
+            this.breakTime = this.breakTime - 60
+            this.breakTimeElement.innerHTML = this.breakTime / 60
+        }
     }
 
     resetTimer() {
